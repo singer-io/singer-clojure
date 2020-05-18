@@ -7,7 +7,7 @@
 
                  ;; repl
                  [org.clojure/tools.nrepl "0.2.13"]
-                 [cider/cider-nrepl "0.17.0"]
-                 ]
+                 [cider/cider-nrepl "0.17.0"]]
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}
+             :system {:java-cmd "/usr/lib/jvm/java-11-openjdk-amd64/bin/java"}})

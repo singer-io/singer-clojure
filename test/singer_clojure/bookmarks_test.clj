@@ -4,8 +4,8 @@
 
 (deftest clear-bookmark-test
   (testing "Confirm bookmark cleared from state"
-    (let [state {"bookmarks" {"a-stream" {"bookmark-key" "bookmark-value"}}}]
-      (is (= (clear-bookmark state "a-stream" "bookmark-key") {"bookmarks" {"a-stream" {}}})))))
+    (let [state {"bookmarks" {"a-stream" {"a-bookmark-key" "a-bookmark-value"}}}]
+      (is (= (clear-bookmark state "a-stream" "a-bookmark-key") {"bookmarks" {"a-stream" {}}})))))
 
 (deftest reset-stream-test
   (testing "Confirm stream's bookmark cleared from state"
