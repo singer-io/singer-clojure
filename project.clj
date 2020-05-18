@@ -4,6 +4,7 @@
   :license {:name "GNU General Public License Version 3; Other commercial licenses available."
             :url "http://www.gnu.org/licenses/gpl.html"}
   :dependencies [[org.clojure/clojure "1.7.0"]
+                 [org.clojure/data.json "0.2.6"]
 
                  ;; repl
                  [org.clojure/tools.nrepl "0.2.13"]
