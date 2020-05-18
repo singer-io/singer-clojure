@@ -7,4 +7,4 @@ Distributed under the Apache License Version 2.0
 
 ---
 
-Copyright © 2020 Stitch
+Copyright &copy; 2020 Stitch
