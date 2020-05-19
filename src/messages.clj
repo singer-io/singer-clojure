@@ -66,9 +66,9 @@
       (write! (assoc record-message "version" version)))))
 
 (defn write-activate-version!
-  [stream-name catalog state]
+  [stream-name version state]
   (write! {"type"    "ACTIVATE_VERSION"
-           "stream"  stream-name 
-           "version" (get-in state ["bookmarks" stream-name "version"])})
+           "stream"  stream-name
+           "version" version})
   ;; This must return state, as it appears in the pipeline of a sync
   state)
