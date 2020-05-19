@@ -86,3 +86,51 @@
            actual-activate-version-message))
     (is (= state
            returned-state))))
+
+(deftest write-record-without-version-and-without-time-extracted-test
+  (let [stream-name                     "tst-stream"
+        record                          {"a" "b" "c" "d"}
+        expected-write-record-messsage  {"type"   "RECORD"
+                                         "stream" stream-name
+                                         "record" record}
+        [actual-write-record-message _] (get-messages-from-output singer-messages/write-record! stream-name record)]
+    (is (= expected-write-record-messsage
+           actual-write-record-message))))
+
+(deftest write-record-without-version-and-with-time-extracted-test
+  (let [stream-name                     "tst-stream"
+        record                          {"a" "b" "c" "d"}
+        time-extracted                  "2020-05-19T15:42:07+0000"
+        expected-write-record-messsage  {"type"   "RECORD"
+                                         "stream" stream-name
+                                         "record" record
+                                         "time_extracted" time-extracted}
+        [actual-write-record-message _] (get-messages-from-output singer-messages/write-record! stream-name record {:time-extracted time-extracted})]
+    (is (= expected-write-record-messsage
+           actual-write-record-message))))
+
+(deftest write-record-with-version-and-without-time-extracted-test
+  (let [stream-name                     "tst-stream"
+        record                          {"a" "b" "c" "d"}
+        version                         1234
+        expected-write-record-messsage  {"type"   "RECORD"
+                                         "stream" stream-name
+                                         "record" record
+                                         "version" version}
+        [actual-write-record-message _] (get-messages-from-output singer-messages/write-record! stream-name record {:version version})]
+    (is (= expected-write-record-messsage
+           actual-write-record-message))))
+
+(deftest write-record-with-version-and-time-extracted-test
+  (let [stream-name                     "tst-stream"
+        record                          {"a" "b" "c" "d"}
+        version                         1234
+        time-extracted                  "2020-05-19T15:42:07+0000"
+        expected-write-record-messsage  {"type"   "RECORD"
+                                         "stream" stream-name
+                                         "record" record
+                                         "version" version
+                                         "time_extracted" time-extracted}
+        [actual-write-record-message _] (get-messages-from-output singer-messages/write-record! stream-name record {:version version :time-extracted time-extracted})]
+    (is (= expected-write-record-messsage
+           actual-write-record-message))))

@@ -56,14 +56,18 @@
   state)
 
 (defn write-record!
-  [stream-name state record catalog]
-  (let [record-message {"type"   "RECORD"
-                        "stream" stream-name
-                        "record" record}
-        version        (get-in state ["bookmarks" stream-name "version"])]
-    (if (nil? version)
-      (write! record-message)
-      (write! (assoc record-message "version" version)))))
+  ([stream-name record]
+   (write-record! stream-name record {}))
+  ([stream-name record options]
+   (let [{:keys [version time-extracted]
+          :or   {version nil time-extracted nil}} options]
+     (write! (merge {"type"   "RECORD"
+                     "stream" stream-name
+                     "record" record}
+                    (when version
+                      {"version" version})
+                    (when time-extracted
+                      {"time_extracted" time-extracted}))))))
 
 (defn write-activate-version!
   [stream-name version state]
