@@ -18,68 +18,73 @@
       (is (= (get-selected-streams catalog)
              '("stream_a" "stream_c" "stream_e"))))))
 
+(def test-serialized-catalog {"streams"
+                              (list {"stream"        "stream_a",
+                                     "tap_stream_id" "stream_a",
+                                     "table_name"    "stream_a",
+                                     "schema"
+                                     {"type" "object",
+                                      "properties"
+                                      {"field_a" {"type" ["integer" "null"]},
+                                       "field_b" {"type" ["string" "null"]}}},
+                                     "metadata"
+                                     (list {"metadata"
+                                            {"database-name"          "Stitch (DA7)",
+                                             "table-key-properties"   [],
+                                             "valid-replication-keys" []},
+                                            "breadcrumb" []}
+                                           {"metadata"   {"inclusion" "available", "sql-datatype" "VARCHAR2"},
+                                            "breadcrumb" ["properties" "field_a"]}
+                                           {"metadata"   {"inclusion" "available", "sql-datatype" "VARCHAR2"},
+                                            "breadcrumb" ["properties" "field_b"]})}
+                                    {"stream"        "stream_b",
+                                     "tap_stream_id" "stream_b",
+                                     "table_name"    "stream_b",
+                                     "schema"
+                                     {"type" "object",
+                                      "properties"
+                                      {"field_a" {"type" ["integer" "null"]},
+                                       "field_b" {"type" ["string" "null"]}}},
+                                     "metadata"
+                                     (list {"metadata"
+                                            {"database-name"          "Stitch (DA7)",
+                                             "table-key-properties"   [],
+                                             "valid-replication-keys" []},
+                                            "breadcrumb" []}
+                                           {"metadata"   {"inclusion" "available", "sql-datatype" "VARCHAR2"},
+                                            "breadcrumb" ["properties" "field_a"]}
+                                           {"metadata"   {"inclusion" "available", "sql-datatype" "VARCHAR2"},
+                                            "breadcrumb" ["properties" "field_b"]})})})
+
+(def test-deserialized-catalog {"stream_a" { "stream"       "stream_a"
+                                            "tap_stream_id" "stream_a"
+                                            "table_name"    "stream_a"
+                                            "schema"        { "type"      "object"
+                                                             "properties" {"field_a" { "type" ["integer" "null"]}
+                                                                           "field_b" { "type" ["string" "null"]}}}
+                                            "metadata"      {"database-name"          "Stitch (DA7)"
+                                                             "table-key-properties"   []
+                                                             "valid-replication-keys" []
+                                                             "properties"             { "field_a" {"inclusion" "available" "sql-datatype" "VARCHAR2"}
+                                                                                       "field_b"  {"inclusion" "available" "sql-datatype" "VARCHAR2"}}}}
+                                "stream_b" { "stream"       "stream_b"
+                                            "tap_stream_id" "stream_b"
+                                            "table_name"    "stream_b"
+                                            "schema"        { "type"      "object"
+                                                             "properties" {"field_a" { "type" ["integer" "null"]}
+                                                                           "field_b" { "type" ["string" "null"]}}}
+                                            "metadata"      {"database-name"          "Stitch (DA7)"
+                                                             "table-key-properties"   []
+                                                             "valid-replication-keys" []
+                                                             "properties"             { "field_a" {"inclusion" "available" "sql-datatype" "VARCHAR2"}
+                                                                                       "field_b"  {"inclusion" "available" "sql-datatype" "VARCHAR2"}}}}})
+
+
 (deftest serialize-catalog-test
   (testing "Confirm that a catalog can be correctly deserialized, and then
   serialized back to its original form"
-   (let [serialized-catalog            {"streams"
-                                        (list {"stream"        "stream_a",
-                                               "tap_stream_id" "stream_a",
-                                               "table_name"    "stream_a",
-                                               "schema"
-                                               {"type" "object",
-                                                "properties"
-                                                {"field_a" {"type" ["integer" "null"]},
-                                                 "field_b" {"type" ["string" "null"]}}},
-                                               "metadata"
-                                               (list {"metadata"
-                                                      {"database-name"          "Stitch (DA7)",
-                                                       "table-key-properties"   #{},
-                                                       "valid-replication-keys" #{}},
-                                                      "breadcrumb" []}
-                                                     {"metadata"   {"inclusion" "available", "sql-datatype" "VARCHAR2"},
-                                                      "breadcrumb" ["properties" "field_a"]}
-                                                     {"metadata"   {"inclusion" "available", "sql-datatype" "VARCHAR2"},
-                                                      "breadcrumb" ["properties" "field_b"]})}
-                                              {"stream"        "stream_b",
-                                               "tap_stream_id" "stream_b",
-                                               "table_name"    "stream_b",
-                                               "schema"
-                                               {"type" "object",
-                                                "properties"
-                                                {"field_a" {"type" ["integer" "null"]},
-                                                 "field_b" {"type" ["string" "null"]}}},
-                                               "metadata"
-                                               (list {"metadata"
-                                                      {"database-name"          "Stitch (DA7)",
-                                                       "table-key-properties"   #{},
-                                                       "valid-replication-keys" #{}},
-                                                      "breadcrumb" []}
-                                                     {"metadata"   {"inclusion" "available", "sql-datatype" "VARCHAR2"},
-                                                      "breadcrumb" ["properties" "field_a"]}
-                                                     {"metadata"   {"inclusion" "available", "sql-datatype" "VARCHAR2"},
-                                                      "breadcrumb" ["properties" "field_b"]})})}
-         expected-deserialized-catalog {"stream_a" { "stream"       "stream_a"
-                                                    "tap_stream_id" "stream_a"
-                                                    "table_name"    "stream_a"
-                                                    "schema"        { "type"      "object"
-                                                                     "properties" {"field_a" { "type" ["integer" "null"]}
-                                                                                   "field_b" { "type" ["string" "null"]}}}
-                                                    "metadata"      {"database-name"          "Stitch (DA7)"
-                                                                     "table-key-properties"   #{}
-                                                                     "valid-replication-keys" #{}
-                                                                     "properties"             { "field_a" {"inclusion" "available" "sql-datatype" "VARCHAR2"}
-                                                                                               "field_b"  {"inclusion" "available" "sql-datatype" "VARCHAR2"}}}}
-                                        "stream_b" { "stream"       "stream_b"
-                                                    "tap_stream_id" "stream_b"
-                                                    "table_name"    "stream_b"
-                                                    "schema"        { "type"      "object"
-                                                                     "properties" {"field_a" { "type" ["integer" "null"]}
-                                                                                   "field_b" { "type" ["string" "null"]}}}
-                                                    "metadata"      {"database-name"          "Stitch (DA7)"
-                                                                     "table-key-properties"   #{}
-                                                                     "valid-replication-keys" #{}
-                                                                     "properties"             { "field_a" {"inclusion" "available" "sql-datatype" "VARCHAR2"}
-                                                                                               "field_b"  {"inclusion" "available" "sql-datatype" "VARCHAR2"}}}}}]
+    (let [serialized-catalog            test-serialized-catalog
+          expected-deserialized-catalog test-deserialized-catalog]
      (is (= (deserialize-catalog serialized-catalog)
             expected-deserialized-catalog))
      (is (= (serialize-catalog (deserialize-catalog serialized-catalog))
