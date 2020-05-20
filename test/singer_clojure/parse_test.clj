@@ -52,12 +52,16 @@
           expected-state     {"bookmarks" {"test-stream" {"a-key" "a-value"}}}
           _                  (spit state-file-path (json/write-str expected-state))
           catalog-file       (java.io.File/createTempFile "catalog" ".json")
-          config-file-path   (.getAbsolutePath catalog-file)
+          catalog-file-path   (.getAbsolutePath catalog-file)
           serialized-catalog catalog-test/test-serialized-catalog
           _                  (spit catalog-file-path (json/write-str serialized-catalog))
-          parsed-args        (parse-args ("--config" config-file-path
-                                          "--state" state-file-path
-                                          "--catalog" catalog-file-path
-                                          "--repl"))])
-    )
-  )
+          parsed-args        (parse-args "--config" config-file-path
+                                         "--state" state-file-path
+                                         "--catalog" catalog-file-path
+                                         "--repl")]
+      (is (= expected-config
+             (get-in parsed-args [:options :config])))
+      (is (= expected-state
+             (get-in parsed-args [:options :state])))
+      (is (= catalog-test/test-deserialized-catalog
+             (get-in parsed-args [:options :catalog]))))))
