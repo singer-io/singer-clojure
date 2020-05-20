@@ -3,6 +3,7 @@
             [clojure.test :refer [is]]))
 
 (defn valid?
+  "Function to evalulate whether a singer message is valid"
   [message]
   (and (#{"SCHEMA" "STATE" "RECORD" "ACTIVATE_VERSION"} (message "type"))
        (case (message "type")
@@ -19,6 +20,7 @@
          (message "version"))))
 
 (defn write!
+  "Writes a valid singer message to stdout"
   [message]
   {:pre [(is (valid? message) (format "message %s is not valid" message))]}
   (-> message
@@ -34,9 +36,9 @@
             unsupported-keys)))
 
 (defn write-schema!
+  "Writes a schema message to std out, optionally takes bookmark-properties"
   ([catalog stream-name key-properties]
-   (write-schema! catalog stream-name key-properties nil)
-   )
+   (write-schema! catalog stream-name key-properties nil))
   ([catalog stream-name key-properties bookmark-properties]
    (-> (merge {"type"    "SCHEMA"
                "stream"         stream-name
@@ -48,6 +50,7 @@
        write!)))
 
 (defn write-state!
+  "Writes a state message to std out and returns state unchanged"
   [state]
   (write! {"type" "STATE"
            "value" state})
@@ -56,6 +59,7 @@
   state)
 
 (defn write-record!
+  "Writes a record message to std out, optionally takes a version and time extracted"
   ([stream-name record]
    (write-record! stream-name record {}))
   ([stream-name record options]
@@ -70,6 +74,7 @@
                       {"time_extracted" time-extracted}))))))
 
 (defn write-activate-version!
+  "Writes an activate version message to std out and returns state unchanged"
   [stream-name version state]
   (write! {"type"    "ACTIVATE_VERSION"
            "stream"  stream-name
