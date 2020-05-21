@@ -92,7 +92,7 @@
 
 (defn- deserialize-stream
   [serialized-stream]
-  {:pre [(map? serialized-stream)]}
+  {:pre [(is (map? serialized-stream) (format "serialized-stream %s is not a map" serialized-stream))]}
   (as-> serialized-stream ss
     (update ss "metadata" deserialize-stream-metadata)
     (update ss "schema" deserialize-stream-schema (ss "metadata"))))

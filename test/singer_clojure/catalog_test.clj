@@ -18,7 +18,7 @@
       (is (= (get-selected-streams catalog)
              '("stream_a" "stream_c" "stream_e"))))))
 
-;; `test-serialized-catalog` and `test-deserialized-catalog` are def'd
+;; `serialized-test-catalog` and `deserialized-test-catalog` are def'd
 ;; here since they are also used in the parse tests
 (def serialized-test-catalog {"streams"
                               (list {"stream"        "stream_a",
