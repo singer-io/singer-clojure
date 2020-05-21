@@ -20,7 +20,7 @@
 
 ;; `test-serialized-catalog` and `test-deserialized-catalog` are def'd
 ;; here since they are also used in the parse tests
-(def test-serialized-catalog {"streams"
+(def serialized-test-catalog {"streams"
                               (list {"stream"        "stream_a",
                                      "tap_stream_id" "stream_a",
                                      "table_name"    "stream_a",
@@ -58,7 +58,7 @@
                                            {"metadata"   {"inclusion" "available", "sql-datatype" "VARCHAR2"},
                                             "breadcrumb" ["properties" "field_b"]})})})
 
-(def test-deserialized-catalog {"stream_a" { "stream"       "stream_a"
+(def deserialized-test-catalog {"stream_a" { "stream"       "stream_a"
                                             "tap_stream_id" "stream_a"
                                             "table_name"    "stream_a"
                                             "schema"        { "type"      "object"
@@ -85,8 +85,8 @@
 (deftest serialize-catalog-test
   (testing "Confirm that a catalog can be correctly deserialized, and then
   serialized back to its original form"
-    (let [serialized-catalog            test-serialized-catalog
-          expected-deserialized-catalog test-deserialized-catalog]
+    (let [serialized-catalog            serialized-test-catalog
+          expected-deserialized-catalog deserialized-test-catalog]
      (is (= (deserialize-catalog serialized-catalog)
             expected-deserialized-catalog))
      (is (= (serialize-catalog (deserialize-catalog serialized-catalog))

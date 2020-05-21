@@ -33,7 +33,7 @@
   (testing "Confirm that catalog file can be parsed"
     (let [temp-file        (java.io.File/createTempFile "catalog" ".json")
           temp-file-name   (.getAbsolutePath temp-file)
-          expected-catalog catalog-test/test-serialized-catalog
+          expected-catalog catalog-test/serialized-test-catalog
           catalog-json-str (json/write-str expected-catalog)
           _                (spit temp-file-name catalog-json-str)
           actual-catalog   (catalog temp-file-name)
@@ -42,7 +42,8 @@
              actual-catalog)))))
 
 (deftest parse-args-test
-  (testing "Confirm that we can read and parse all args"
+  (testing "Confirm that we can read and parse all args when they're
+  provided in both long and short formats"
     (let [config-file        (java.io.File/createTempFile "config" ".json")
           config-file-path   (.getAbsolutePath config-file)
           expected-config    {:a "foo" :b "bar"}
@@ -52,16 +53,27 @@
           expected-state     {"bookmarks" {"test-stream" {"a-key" "a-value"}}}
           _                  (spit state-file-path (json/write-str expected-state))
           catalog-file       (java.io.File/createTempFile "catalog" ".json")
-          catalog-file-path   (.getAbsolutePath catalog-file)
-          serialized-catalog catalog-test/test-serialized-catalog
-          _                  (spit catalog-file-path (json/write-str serialized-catalog))
-          parsed-args        (parse-args "--config" config-file-path
+          catalog-file-path  (.getAbsolutePath catalog-file)
+          _                  (spit catalog-file-path (json/write-str catalog-test/serialized-test-catalog))
+          parsed-args-long   (parse-args "--config" config-file-path
                                          "--state" state-file-path
                                          "--catalog" catalog-file-path
-                                         "--repl")]
+                                         "--discover"
+                                         "--repl")
+          parsed-args-short  (parse-args "-c" config-file-path
+                                         "-s" state-file-path
+                                         "--catalog" catalog-file-path
+                                         "-d"
+                                         "-r")]
+      (.delete config-file)
+      (.delete state-file)
+      (.delete catalog-file)
       (is (= expected-config
-             (get-in parsed-args [:options :config])))
+             (get-in parsed-args-long [:options :config])
+             (get-in parsed-args-short [:options :config])))
       (is (= expected-state
-             (get-in parsed-args [:options :state])))
-      (is (= catalog-test/test-deserialized-catalog
-             (get-in parsed-args [:options :catalog]))))))
+             (get-in parsed-args-long [:options :state])
+             (get-in parsed-args-short [:options :state])))
+      (is (= catalog-test/deserialized-test-catalog
+             (get-in parsed-args-long [:options :catalog])
+             (get-in parsed-args-short [:options :catalog]))))))

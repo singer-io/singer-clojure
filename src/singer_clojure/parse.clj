@@ -32,13 +32,13 @@
   (slurp-json catalog-file))
 
 (def cli-options
-  [["-d" "--discover" "Discovery Mode"]
-   [nil "--repl" "REPL Mode"]
-   [nil "--config CONFIG" "Config File"
+  [["-d" "--discover"       "Discovery Mode"]
+   ["-r" "--repl"           "REPL Mode"]
+   ["-c" "--config CONFIG"  "Singer Config File"
     :parse-fn #'config]
    [nil "--catalog CATALOG" "Singer Catalog File"
     :parse-fn (comp catalog/deserialize-catalog catalog)]
-   [nil "--state STATE" "Singer State File"
+   ["-s" "--state STATE"    "Singer State File"
     :parse-fn #'state]
    ["-h" "--help"]])
 

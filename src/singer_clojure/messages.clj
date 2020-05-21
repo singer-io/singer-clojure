@@ -27,7 +27,7 @@
       (json/write-str)
       println))
 
-(defn make-unsupported-schemas-empty [schema-message catalog stream-name]
+(defn- make-unsupported-schemas-empty [schema-message catalog stream-name]
   (let [schema-keys      (get-in catalog [stream-name "metadata" "properties"])
         unsupported-keys (map first (filter #(= "unsupported" ((second %) "inclusion"))
                                             (seq schema-keys)))]
