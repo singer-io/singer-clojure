@@ -1,4 +1,5 @@
-(ns singer-clojure.catalog)
+(ns singer-clojure.catalog
+  (:require [clojure.test :refer [is]]))
 
 (defn get-selected-streams
   [catalog]
