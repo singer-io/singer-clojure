@@ -23,7 +23,7 @@
 (defn state
   "This function exists as a test seam and for the post condition"
   [state-file]
-  {:post [(is (map? %) (format "state-file %s is not a map" %))]}
+  {:post [(is (map? %) (format "parsed state and returned value %s is not a map" %))]}
   (slurp-json state-file))
 
 (defn catalog
