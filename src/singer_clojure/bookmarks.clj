@@ -4,7 +4,7 @@
 (defn clear-bookmark
   "Clear the bookmark from state"
   [state tap-stream-id bookmark-key]
-  (update-in state ["bookmarks" tap-stream-id] dissoc "bookmark-key"))
+  (update-in state ["bookmarks" tap-stream-id] dissoc bookmark-key))
 
 (defn reset-stream
   "Clear the stream's bookmarks from state"
