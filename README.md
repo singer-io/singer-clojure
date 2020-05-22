@@ -22,7 +22,7 @@ Clojure library for shared code between clojure taps
 ```
 
 ## Deploying
-See instructions in `how-to-sources`
+See [clojars-deploy-instructions](https://github.com/stitchdata/engineering-documents/blob/master/clojars-deploy-instructions.md)
 
 ## License
 

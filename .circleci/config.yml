@@ -7,10 +7,13 @@ jobs:
       - checkout
       - add_ssh_keys
       - run:
-          name: 'Unit Tests'
+          name: 'Test'
           command: |
             lein deps
             lein test
+      - run:
+          name: 'Lint'
+          command: 'lein eastwood "{:exclude-linters [:wrong-pre-post]}"'
 
 workflows:
   version: 2
