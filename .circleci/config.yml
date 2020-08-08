@@ -2,15 +2,18 @@ version: 2
 jobs:
   build:
     docker:
-      - image: 218546966473.dkr.ecr.us-east-1.amazonaws.com/circle-ci:tap-tester-clj
+      - image: 218546966473.dkr.ecr.us-east-1.amazonaws.com/circle-ci:tap-tester-clj-v4
     steps:
       - checkout
       - add_ssh_keys
       - run:
-          name: 'Unit Tests'
+          name: 'Test'
           command: |
             lein deps
             lein test
+      - run:
+          name: 'Lint'
+          command: 'lein eastwood "{:exclude-linters [:wrong-pre-post]}"'
 
 workflows:
   version: 2

@@ -11,6 +11,7 @@
                  [cider/cider-nrepl "0.17.0"]
 
                  [org.clojure/tools.cli "0.4.1"]]
+  :plugins [[jonase/eastwood "0.3.10"]]
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
              :system {:java-cmd "/usr/lib/jvm/java-11-openjdk-amd64/bin/java"}})

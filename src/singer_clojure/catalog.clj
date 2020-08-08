@@ -2,9 +2,9 @@
   (:require [clojure.test :refer [is]]))
 
 (defn get-selected-streams
-  [catalog]
   "Takes a deserialized catalog and returns a sequence of the selected
   tap-stream-ids"
+  [catalog]
   (filter #(get-in catalog [% "metadata" "selected"]) (keys catalog)))
 
 
