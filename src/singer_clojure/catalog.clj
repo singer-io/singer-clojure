@@ -1,11 +1,22 @@
 (ns singer-clojure.catalog
   (:require [clojure.test :refer [is]]))
 
+(defn- shuffle-streams
+  "Shuffle streams to place `currently_syncing` at the front. If currently_syncing does not exist, start over."
+  [selected-streams state]
+  (let [currently-syncing (:currently_syncing state)
+        front (take-while #(not= currently-syncing %) selected-streams)
+        back (drop-while #(not= currently-syncing %) selected-streams)]
+    (concat back front)))
+
 (defn get-selected-streams
-  [catalog]
   "Takes a deserialized catalog and returns a sequence of the selected
   tap-stream-ids"
-  (filter #(get-in catalog [% "metadata" "selected"]) (keys catalog)))
+  ([catalog]
+   (get-selected-streams catalog {}))
+  ([catalog state]
+   (-> (filter #(get-in catalog [% "metadata" "selected"]) (keys catalog))
+       (shuffle-streams state))))
 
 
 (defn- serialize-stream-metadata-property
