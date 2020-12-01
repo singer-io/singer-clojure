@@ -4,7 +4,7 @@
 (defn- shuffle-streams
   "Shuffle streams to place `currently_syncing` at the front. If currently_syncing does not exist, start over."
   [selected-streams state]
-  (let [currently-syncing (:currently_syncing state)
+  (let [currently-syncing (get state "currently_syncing")
         front (take-while #(not= currently-syncing %) selected-streams)
         back (drop-while #(not= currently-syncing %) selected-streams)]
     (concat back front)))
