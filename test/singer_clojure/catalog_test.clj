@@ -2,7 +2,7 @@
   (:require [clojure.test :refer :all]
             [singer-clojure.catalog :refer :all]))
 
-(deftest get-selected-streams-test
+(deftest get-selected-streams-respects-selected-metadata
   (testing "Test that the get-selected-stream properly returns a sequence
   of selected streams"
     (let [catalog {"stream_a" { "stream"       "stream_a"
@@ -16,6 +16,57 @@
                    "stream_e" { "stream"       "stream_e"
                                "metadata"      {"selected" true}}}]
       (is (= (get-selected-streams catalog)
+             '("stream_a" "stream_c" "stream_e"))))))
+
+(deftest get-selected-streams-with-currently-syncing-shuffles
+  (testing "Test that the get-selected-stream properly returns a sequence
+  of selected streams, shuffled to respect `currently_syncing` in state"
+    (let [catalog {"stream_a" { "stream"       "stream_a"
+                               "metadata"      {"selected" true}}
+                   "stream_b" { "stream"       "stream_b"
+                               "metadata"      {"selected" false}}
+                   "stream_c" { "stream"       "stream_c"
+                               "metadata"      {"selected" true}}
+                   "stream_d" { "stream"       "stream_d"
+                               "metadata"      {"selected" false}}
+                   "stream_e" { "stream"       "stream_e"
+                               "metadata"      {"selected" true}}}
+          state {"currently_syncing" "stream_c"}]
+      (is (= (get-selected-streams catalog state)
+             '("stream_c" "stream_e" "stream_a"))))))
+
+(deftest get-selected-streams-with-currently-syncing-deselected-does-not-shuffle
+  (testing "Test that the get-selected-stream properly returns a sequence
+  of selected streams, unshuffled, if `currently_syncing` is deselected."
+    (let [catalog {"stream_a" { "stream"       "stream_a"
+                               "metadata"      {"selected" true}}
+                   "stream_b" { "stream"       "stream_b"
+                               "metadata"      {"selected" false}}
+                   "stream_c" { "stream"       "stream_c"
+                               "metadata"      {"selected" true}}
+                   "stream_d" { "stream"       "stream_d"
+                               "metadata"      {"selected" false}}
+                   "stream_e" { "stream"       "stream_e"
+                               "metadata"      {"selected" true}}}
+          state {"currently_syncing" "stream_b"}]
+      (is (= (get-selected-streams catalog state)
+             '("stream_a" "stream_c" "stream_e"))))))
+
+(deftest get-selected-streams-with-currently-syncing-missing-does-not-shuffle
+  (testing "Test that the get-selected-stream properly returns a sequence
+  of selected streams, unshuffled, if `currently_syncing` is missing."
+    (let [catalog {"stream_a" { "stream"       "stream_a"
+                               "metadata"      {"selected" true}}
+                   "stream_b" { "stream"       "stream_b"
+                               "metadata"      {"selected" false}}
+                   "stream_c" { "stream"       "stream_c"
+                               "metadata"      {"selected" true}}
+                   "stream_d" { "stream"       "stream_d"
+                               "metadata"      {"selected" false}}
+                   "stream_e" { "stream"       "stream_e"
+                               "metadata"      {"selected" true}}}
+          state {"currently_syncing" "stream_x"}]
+      (is (= (get-selected-streams catalog state)
              '("stream_a" "stream_c" "stream_e"))))))
 
 ;; `serialized-test-catalog` and `deserialized-test-catalog` are def'd
