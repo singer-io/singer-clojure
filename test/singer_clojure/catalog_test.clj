@@ -31,7 +31,7 @@
                                "metadata"      {"selected" false}}
                    "stream_e" { "stream"       "stream_e"
                                "metadata"      {"selected" true}}}
-          state {:currently_syncing "stream_c"}]
+          state {"currently_syncing" "stream_c"}]
       (is (= (get-selected-streams catalog state)
              '("stream_c" "stream_e" "stream_a"))))))
 
@@ -48,7 +48,7 @@
                                "metadata"      {"selected" false}}
                    "stream_e" { "stream"       "stream_e"
                                "metadata"      {"selected" true}}}
-          state {:currently_syncing "stream_b"}]
+          state {"currently_syncing" "stream_b"}]
       (is (= (get-selected-streams catalog state)
              '("stream_a" "stream_c" "stream_e"))))))
 
@@ -65,7 +65,7 @@
                                "metadata"      {"selected" false}}
                    "stream_e" { "stream"       "stream_e"
                                "metadata"      {"selected" true}}}
-          state {:currently_syncing "stream_x"}]
+          state {"currently_syncing" "stream_x"}]
       (is (= (get-selected-streams catalog state)
              '("stream_a" "stream_c" "stream_e"))))))
 

@@ -1,10 +1,11 @@
 (ns singer-clojure.catalog
-  (:require [clojure.test :refer [is]]))
+  (:require [singer-clojure.bookmarks :as bookmarks]
+            [clojure.test :refer [is]]))
 
 (defn- shuffle-streams
   "Shuffle streams to place `currently_syncing` at the front. If currently_syncing does not exist, start over."
   [selected-streams state]
-  (let [currently-syncing (get state "currently_syncing")
+  (let [currently-syncing (bookmarks/get-currently-syncing state)
         front (take-while #(not= currently-syncing %) selected-streams)
         back (drop-while #(not= currently-syncing %) selected-streams)]
     (concat back front)))
