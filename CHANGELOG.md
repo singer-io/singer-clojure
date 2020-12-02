@@ -1,24 +1,14 @@
-# Change Log
-All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
+# Changelog
 
-## [Unreleased][unreleased]
-### Changed
-- Add a new arity to `make-widget-async` to provide a different widget shape.
+## 1.1.0
+  * Add `currently_syncing` feature to `get-selected-streams` [#10](https://github.com/singer-io/singer-clojure/pull/10)
 
-## [0.1.1] - 2020-05-14
-### Changed
-- Documentation on how to make the widgets.
+## 1.0.0
+  * License and initial major release [#8](https://github.com/singer-io/singer-clojure/pull/8)
 
-### Removed
-- `make-widget-sync` - we're all async, all the time.
+## 0.2.0
+  * Add messages, catalog, and parse namespaces [#4](https://github.com/singer-io/singer-clojure/pull/4)
 
-### Fixed
-- Fixed widget maker to keep working when daylight savings switches over.
-
-## 0.1.0 - 2020-05-14
-### Added
-- Files from the new template.
-- Widget maker public API - `make-widget-sync`.
-
-[unreleased]: https://github.com/your-name/singer-clojure/compare/0.1.1...HEAD
-[0.1.1]: https://github.com/your-name/singer-clojure/compare/0.1.0...0.1.1
+## 0.1.0
+  * Add bookmarks namespace
+  * Initial project setup
