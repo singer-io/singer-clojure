@@ -1,18 +1,16 @@
 (ns singer-clojure.log
   (:require
    [clojure.string :as clj-str]
-   [clojure.tools.logging :as log]))
-
-(defn compile-message [calling-ns msg ex]
-  (if ex
-    (str calling-ns " - " msg " : " (.getMessage ex) "\n")
-    (str calling-ns " - " msg "\n")))
+   [clojure.tools.logging :as log]
+   [clojure.string :as string]))
 
 (defn fatal
   ([msg calling-ns]
-   (log/error (compile-message calling-ns msg nil) ))
+   (log/error (str calling-ns " - " msg)))
   ([msg calling-ns ex]
-   (log/error (compile-message calling-ns msg ex) ex )))
+   (doseq [next-msg  (string/split (.getMessage ^Exception ex) #"\n")]
+     (log/error (str calling-ns " - " msg " - " next-msg)))
+   (log/error ex)))
 
 (defmacro log-fatal
   ([msg]
