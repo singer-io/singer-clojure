@@ -8,7 +8,7 @@
   ([msg calling-ns]
    (log/error (str calling-ns " - " msg)))
   ([msg calling-ns ex]
-   (doseq [next-msg  (string/split (.getMessage ^Exception ex) #"\n")]
+   (doseq [next-msg  (string/split (or (.getMessage ^Exception ex) "") #"\n")]
      (log/error (str calling-ns " - " msg " - " next-msg)))
    (log/error ex)))
 
