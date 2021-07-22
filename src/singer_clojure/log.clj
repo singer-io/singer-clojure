@@ -1,6 +1,5 @@
 (ns singer-clojure.log
   (:require
-   [clojure.string :as clj-str]
    [clojure.tools.logging :as log]
    [clojure.string :as string]))
 

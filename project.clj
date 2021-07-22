@@ -14,4 +14,7 @@
                  [org.clojure/tools.cli "0.4.1"]]
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
-             :system {:java-cmd "/usr/lib/jvm/java-11-openjdk-amd64/bin/java"}})
+             :system {:java-cmd "/usr/lib/jvm/java-11-openjdk-amd64/bin/java"}
+             ;; CLI Command: lein with-profile test,base repl
+             :test {:dependencies [[org.clojure/tools.logging "1.1.0"]]
+                    :plugins [[cider/cider-nrepl "0.25.2"]]}})
