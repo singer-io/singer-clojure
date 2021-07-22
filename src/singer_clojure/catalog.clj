@@ -17,8 +17,8 @@
    (get-selected-streams catalog {}))
   ([catalog state]
    (-> (filter #(get-in catalog [% "metadata" "selected"]) (keys catalog))
+       sort
        (shuffle-streams state))))
-
 
 (defn- serialize-stream-metadata-property
   [[stream-metadata-property-name stream-metadata-property-metadata :as stream-metadata-property]]
