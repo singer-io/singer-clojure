@@ -11,6 +11,9 @@
                  [org.clojure/tools.nrepl "0.2.13"]
                  [cider/cider-nrepl "0.17.0"]
 
+                 ;; Basic log4j dependency to declare bare minimum
+                 [log4j "1.2.17"]
+
                  [org.clojure/tools.cli "0.4.1"]]
   :target-path "target/%s"
   :plugins [[cider/cider-nrepl "0.25.2"]]
