@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.5
+  * Prevent fatal logs from showing just the first line of the stack trace (`SEVERE: #error {`, or `FATAL: #error {`, depending on the logging configuration) by moving the full exception to `WARN` level [#16](https://github.com/singer-io/singer-clojure/pull/16)
+
 ## 1.1.0
   * Add `currently_syncing` feature to `get-selected-streams` [#10](https://github.com/singer-io/singer-clojure/pull/10)
 
