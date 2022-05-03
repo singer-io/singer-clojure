@@ -1,4 +1,4 @@
-(defproject singer-clojure "1.1.5"
+(defproject singer-clojure "1.1.6"
   :description "Clojure library for shared code between clojure taps"
   :url "https://github.com/singer-io/singer-clojure"
   :license {:name "GNU Affero General Public License Version 3; Other commercial licenses available."
