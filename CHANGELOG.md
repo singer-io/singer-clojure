@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.8
+  * Use new log4j version and log4j2.properties
+
 ## 1.1.7
   * Revert log4j changes. [#18](https://github.com/singer-io/singer-clojure/pull/18)
 
