@@ -9,7 +9,7 @@
 
                  ;; repl
                  [org.clojure/tools.nrepl "0.2.13"]
-                 [cider/cider-nrepl "0.25.2"]
+                 [cider/cider-nrepl "0.17.0"]
 
                  ;; Basic log4j dependency to declare bare minimum
                  [org.clojure/tools.logging "1.2.4"]
