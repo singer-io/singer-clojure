@@ -16,6 +16,7 @@
                  [org.apache.logging.log4j/log4j-slf4j-impl "2.25.3"]
                  [org.apache.logging.log4j/log4j-api "2.25.3"]
                  [org.apache.logging.log4j/log4j-core "2.25.3"]
+                 [org.apache.logging.log4j/log4j-1.2-api "2.25.3"]
 
                  [org.clojure/tools.cli "0.4.1"]]
   :target-path "target/%s"
