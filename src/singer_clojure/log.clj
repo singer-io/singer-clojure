@@ -4,7 +4,10 @@
    [clojure.tools.logging.impl :as log-impl]
    [clojure.string :as string]))
 
-;; clojure.tools.logging now uses log4j2 via log4j-slf4j-impl. No bridging or 1.x compatibility required.
+;; clojure.tools.logging now uses Log4j2 via log4j-slf4j-impl.
+;; Fatal-level logging works for Singer taps without requiring Log4j1.
+;; Legacy Java libraries using Log4j1 (e.g., NetSuite, Avro) are supported
+;; at runtime via log4j-1.2-api in the main application project.
 (defonce log4j-factory
   (delay
     (or (log-impl/log4j2-factory)
