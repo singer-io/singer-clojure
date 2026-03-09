@@ -1,4 +1,4 @@
-(defproject singer-clojure "1.1.8"
+(defproject singer-clojure "1.2.0"
   :description "Clojure library for shared code between clojure taps"
   :url "https://github.com/singer-io/singer-clojure"
   :license {:name "GNU Affero General Public License Version 3; Other commercial licenses available."
@@ -13,9 +13,10 @@
 
                  ;; Basic log4j dependency to declare bare minimum
                  [org.clojure/tools.logging "1.2.4"]
-                 [org.slf4j/slf4j-log4j12 "1.7.36"]
-                 [org.apache.logging.log4j/log4j-1.2-api "2.17.1"]
-                 [org.apache.logging.log4j/log4j-core "2.17.1"]
+                 [org.apache.logging.log4j/log4j-slf4j-impl "2.25.3"]
+                 [org.apache.logging.log4j/log4j-api "2.25.3"]
+                 [org.apache.logging.log4j/log4j-core "2.25.3"]
+                 [org.apache.logging.log4j/log4j-1.2-api "2.25.3"]
 
                  [org.clojure/tools.cli "0.4.1"]]
   :target-path "target/%s"

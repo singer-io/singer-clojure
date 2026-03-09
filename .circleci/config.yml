@@ -1,4 +1,5 @@
-version: 2
+version: 2.1
+
 jobs:
   build:
     docker:
@@ -7,7 +8,7 @@ jobs:
       - checkout
       - add_ssh_keys
       - run:
-          name: 'Unit Tests'
+          name: "Install Dependencies and Run Unit Tests"
           command: |
             lein deps
             lein test
@@ -18,6 +19,7 @@ workflows:
     jobs:
       - build:
           context: circleci-user
+
   build_daily:
     triggers:
       - schedule:
