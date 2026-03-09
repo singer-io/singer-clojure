@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2.0
+  * Fix CVE issues update dependency packages
+
 ## 1.1.8
   * Use new log4j version and log4j2.properties
 
