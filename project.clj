@@ -1,10 +1,10 @@
-(defproject singer-clojure "1.2.1"
+(defproject singer-clojure "1.2.2"
   :description "Clojure library for shared code between clojure taps"
   :url "https://github.com/singer-io/singer-clojure"
   :license {:name "GNU Affero General Public License Version 3; Other commercial licenses available."
             :url "https://www.gnu.org/licenses/agpl-3.0.en.html"}
   :resource-paths ["resources/base"]
-  :dependencies [[org.clojure/clojure "1.9.0"]
+  :dependencies [[org.clojure/clojure "1.11.2"]
                  [org.clojure/data.json "0.2.6"]
 
                  ;; repl

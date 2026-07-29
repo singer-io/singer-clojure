@@ -1,6 +1,9 @@
 # Changelog
 
 ## 1.2.1
+  * Fix CVE issues update org.clojure/clojure dependency packages [#23](https://github.com/singer-io/singer-clojure/pull/23)
+
+## 1.2.1
   * Fix CVE issues update log4j dependency packages [#22](https://github.com/singer-io/singer-clojure/pull/22)
 
 ## 1.2.0
