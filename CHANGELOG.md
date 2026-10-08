@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2.3
+  * Bump log4j dependency packages to 2.26.1 to fix CVE issues
+
 ## 1.2.2
   * Bump org.clojure/clojure dependency to fix CVE issues [#23](https://github.com/singer-io/singer-clojure/pull/23)
 
